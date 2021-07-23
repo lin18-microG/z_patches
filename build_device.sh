@@ -3,7 +3,7 @@
 print_help() {
   echo "usage: build_device <device> test|sign"
   echo "----------------------------------------------------------------------"
-  echo " <device> Device name (amami|h850|hotdog|oneplus3|osprey|x86)"
+  echo " <device> Device name (amami|h850|osprey|x86)"
   echo "test - build with testkeys (insecure, but compatible)"
   echo "sign - create a signed build"
 }
@@ -15,7 +15,7 @@ print_device() {
 
 # Check parameters
 case "$1" in
-  amami|h850|hotdog|oneplus3|osprey|x86)
+  amami|h850|osprey|x86)
      print_device $1
     ;;
   *) print_help
@@ -51,7 +51,7 @@ export BUILD_HOSTNAME=localhost
 #start build
 if [ "$TESTKEY" = false ] ; then
   export OWN_KEYS_DIR=~/.android-certs
-  export RELEASE_TYPE=UNOFFICIAL-signed
+  export RELEASE_TYPE=UNOFFICIAL-microG-signed
 
   # We need symlinks to fake the existence of a testkey
   # for the selinux build process

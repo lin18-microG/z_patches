@@ -17,7 +17,7 @@ THISDIR=$PWD
 cd ..
 TOPDIR=$PWD
 
-
-clear_set vendor/lineage
+clear_set device/common
+clear_set packages/apps/SetupWizard
 
 cd $THISDIR
