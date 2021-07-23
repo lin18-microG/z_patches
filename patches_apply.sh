@@ -12,6 +12,13 @@ echo "-"
 cd $TOPDIR
 
 cd $TOPDIR
+cd packages/apps/Dialer
+echo "Patching $PWD (Remove Google forward lookup)"
+patch -p1 < $THISDIR/patch_101_Dialer.patch
+echo "-"
+cd $TOPDIR
+
+cd $TOPDIR
 cd packages/apps/SetupWizard
 echo "Patching $PWD (Suggest disabled metrics by default)"
 patch -p1 < $THISDIR/patch_102_SetupWizard.patch
