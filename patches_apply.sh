@@ -13,8 +13,3 @@ echo "-"
 cd $TOPDIR
 
 cd $THISDIR
-
-
-
-
-

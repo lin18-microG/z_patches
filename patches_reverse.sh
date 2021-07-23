@@ -21,9 +21,3 @@ TOPDIR=$PWD
 clear_set vendor/lineage
 
 cd $THISDIR
-
-
-
-
-
-
