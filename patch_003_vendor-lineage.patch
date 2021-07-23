@@ -1,0 +1,46 @@
+From 7f68a172f853908e5382acff56bbff166925a41c Mon Sep 17 00:00:00 2001
+From: MSe1969 <mse1969@posteo.de>
+Date: Fri, 3 Jan 2020 20:32:49 +0100
+Subject: [PATCH 2/2] amami: Add device-specific overlay for changelog
+
+To avoid having to fork the device repo just for the Updater changelog
+
+Change-Id: I4308447f60d55fbe035351fc58aaecc2188bb1be
+---
+ config/common.mk                                            | 6 ++++++
+ .../amami/packages/apps/Updater/res/values/strings.xml      | 6 ++++++
+ 2 files changed, 12 insertions(+)
+ create mode 100644 overlay/changelog/amami/packages/apps/Updater/res/values/strings.xml
+
+diff --git a/config/common.mk b/config/common.mk
+index dd02b91c..f4a6cce6 100644
+--- a/config/common.mk
++++ b/config/common.mk
+@@ -8,6 +8,12 @@ PRODUCT_DEFAULT_DEV_CERTIFICATE := user-keys/releasekey
+ PRODUCT_OTA_PUBLIC_KEYS := user-keys/releasekey
+ endif
+ 
++# Updater URI and changelog
++PRODUCT_PROPERTY_OVERRIDES += \
++    lineage.updater.uri=https://raw.githubusercontent.com/lin17-microG/OTA/lineage-17.1/$(LINEAGE_BUILD).json
++DEVICE_PACKAGE_OVERLAYS += \
++    vendor/lineage/overlay/changelog/$(LINEAGE_BUILD)
++
+ PRODUCT_BRAND ?= LineageOS
+ 
+ PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
+diff --git a/overlay/changelog/amami/packages/apps/Updater/res/values/strings.xml b/overlay/changelog/amami/packages/apps/Updater/res/values/strings.xml
+new file mode 100644
+index 00000000..f023f6d0
+--- /dev/null
++++ b/overlay/changelog/amami/packages/apps/Updater/res/values/strings.xml
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
++
++    <string name="menu_changelog_url" translatable="false">https://raw.githubusercontent.com/lin17-microG/OTA/changelog/amami_changelog.md</string>
++
++</resources>
+-- 
+2.20.1
+

@@ -1,0 +1,55 @@
+From 4c9f42ce836dff78387b48a2f71f59fd0ecf3ace Mon Sep 17 00:00:00 2001
+From: MSe1969 <mse1969@posteo.de>
+Date: Fri, 15 Mar 2019 12:01:23 +0100
+Subject: [PATCH 1/2] Different sign method in build script
+
+The original method, as documented by Google / LineageOS, sometimes causes
+errors when executing the 'ota_from_target_files' python script.
+
+Therefore, the combination of PRODUCT_DEFAULT_DEV_CERTIFICATE in common.mk
+of vendor/lineage and setting a symlink testkey.* => releasekey.* in the
+certs directory to allow selinux to build has been chosen, similar to
+the docker image in github.com/lineageos4microg.
+
+Adapted for Android 9:
+Soong now requires the keys directory within the build tree, hence a
+symlink is created accordingly
+
+Change-Id: I4b8b26ef3f6d54f7d4ee1c570c1737779b6b8884
+---
+ config/common.mk | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
+
+diff --git a/config/common.mk b/config/common.mk
+index bf2e4374..dd02b91c 100644
+--- a/config/common.mk
++++ b/config/common.mk
+@@ -1,6 +1,13 @@
+ # Allow vendor/extra to override any property by setting it first
+ $(call inherit-product-if-exists, vendor/extra/product.mk)
+ 
++# Sign with own key
++ifneq ($(OWN_KEYS_DIR),)
++$(shell ln -sf $(OWN_KEYS_DIR) user-keys)
++PRODUCT_DEFAULT_DEV_CERTIFICATE := user-keys/releasekey
++PRODUCT_OTA_PUBLIC_KEYS := user-keys/releasekey
++endif
++
+ PRODUCT_BRAND ?= LineageOS
+ 
+ PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
+@@ -209,11 +216,6 @@ ifndef LINEAGE_BUILDTYPE
+     endif
+ endif
+ 
+-# Filter out random types, so it'll reset to UNOFFICIAL
+-ifeq ($(filter RELEASE NIGHTLY SNAPSHOT EXPERIMENTAL,$(LINEAGE_BUILDTYPE)),)
+-    LINEAGE_BUILDTYPE :=
+-endif
+-
+ ifdef LINEAGE_BUILDTYPE
+     ifneq ($(LINEAGE_BUILDTYPE), SNAPSHOT)
+         ifdef LINEAGE_EXTRAVERSION
+-- 
+2.20.1
+
