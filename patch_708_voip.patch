@@ -1,0 +1,40 @@
+From dc2402730ef1cefc34b4eb2c5d7af87bf23cffb3 Mon Sep 17 00:00:00 2001
+From: Daniel Micay <danielmicay@gmail.com>
+Date: Wed, 9 Sep 2020 12:28:42 -0400
+Subject: [PATCH] constify JNINativeMethod tables
+
+Change-Id: I6838297a96c4a64d60d018aa7fc06a7ba6501f54
+---
+ src/jni/rtp/AudioGroup.cpp | 2 +-
+ src/jni/rtp/RtpStream.cpp  | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/jni/rtp/AudioGroup.cpp b/src/jni/rtp/AudioGroup.cpp
+index 5f9cae8..850fd4b 100644
+--- a/src/jni/rtp/AudioGroup.cpp
++++ b/src/jni/rtp/AudioGroup.cpp
+@@ -1067,7 +1067,7 @@ void sendDtmf(JNIEnv *env, jobject thiz, jint event)
+     }
+ }
+ 
+-JNINativeMethod gMethods[] = {
++const JNINativeMethod gMethods[] = {
+     {"nativeAdd", "(IILjava/lang/String;ILjava/lang/String;ILjava/lang/String;)J", (void *)add},
+     {"nativeRemove", "(J)V", (void *)remove},
+     {"nativeSetMode", "(I)V", (void *)setMode},
+diff --git a/src/jni/rtp/RtpStream.cpp b/src/jni/rtp/RtpStream.cpp
+index 4461e31..0e2ef2e 100644
+--- a/src/jni/rtp/RtpStream.cpp
++++ b/src/jni/rtp/RtpStream.cpp
+@@ -93,7 +93,7 @@ void close(JNIEnv *env, jobject thiz)
+     env->SetIntField(thiz, gSocket, -1);
+ }
+ 
+-JNINativeMethod gMethods[] = {
++const JNINativeMethod gMethods[] = {
+     {"create", "(Ljava/lang/String;)I", (void *)create},
+     {"close", "()V", (void *)close},
+ };
+-- 
+2.20.1
+

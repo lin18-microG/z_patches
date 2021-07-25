@@ -1,0 +1,26 @@
+From 1c5b1606bf7729ce053184704d916e8bda60116c Mon Sep 17 00:00:00 2001
+From: Daniel Micay <danielmicay@gmail.com>
+Date: Sun, 17 Mar 2019 20:00:00 -0400
+Subject: [PATCH] constify JNINativeMethod tables
+
+Change-Id: Ia5319bf776b6a98cf94bf8b583b2042d93c04d42
+---
+ .../src/org_lineageos_platform_internal_LineageAudioService.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lineage/jni/src/org_lineageos_platform_internal_LineageAudioService.cpp b/lineage/jni/src/org_lineageos_platform_internal_LineageAudioService.cpp
+index d114ed30..1d6c054e 100644
+--- a/lineage/jni/src/org_lineageos_platform_internal_LineageAudioService.cpp
++++ b/lineage/jni/src/org_lineageos_platform_internal_LineageAudioService.cpp
+@@ -143,7 +143,7 @@ exit:
+ 
+ // ----------------------------------------------------------------------------
+ 
+-static JNINativeMethod gMethods[] = {
++static const JNINativeMethod gMethods[] = {
+      {"native_listAudioSessions", "(ILjava/util/ArrayList;)I",
+             (void *)org_lineageos_platform_internal_LineageAudioService_listAudioSessions},
+      {"native_registerAudioSessionCallback", "(Z)V",
+-- 
+2.20.1
+

@@ -1,0 +1,26 @@
+From 5186385760dd76bff4e166f28c364aaca73648f2 Mon Sep 17 00:00:00 2001
+From: Daniel Micay <danielmicay@gmail.com>
+Date: Sun, 17 Mar 2019 20:00:00 -0400
+Subject: [PATCH] constify JNINativeMethod table(s)
+
+Change-Id: I8d5aaa331a6561a85a8076e051b5bb0445aaee14
+---
+ jni/com_android_terminal_Terminal.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/jni/com_android_terminal_Terminal.cpp b/jni/com_android_terminal_Terminal.cpp
+index a9443f8..800a47b 100644
+--- a/jni/com_android_terminal_Terminal.cpp
++++ b/jni/com_android_terminal_Terminal.cpp
+@@ -717,7 +717,7 @@ static jboolean com_android_terminal_Terminal_nativeDispatchKey(JNIEnv *env, jcl
+     return term->dispatchKey(mod, c);
+ }
+ 
+-static JNINativeMethod gMethods[] = {
++static const JNINativeMethod gMethods[] = {
+     { "nativeInit", "(Lcom/android/terminal/TerminalCallbacks;)J", (void*)com_android_terminal_Terminal_nativeInit },
+     { "nativeDestroy", "(J)I", (void*)com_android_terminal_Terminal_nativeDestroy },
+     { "nativeRun", "(J)I", (void*)com_android_terminal_Terminal_nativeRun },
+-- 
+2.11.0
+

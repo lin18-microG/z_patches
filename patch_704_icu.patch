@@ -1,0 +1,109 @@
+From f12534b548b357d1a159912873bbf092f5d9c38b Mon Sep 17 00:00:00 2001
+From: Daniel Micay <danielmicay@gmail.com>
+Date: Wed, 9 Sep 2020 12:28:42 -0400
+Subject: [PATCH] constify JNINativeMethod tables
+
+Change-Id: I81022842344e4c90a0ad5d01c3d925300fe66edb
+---
+ .../src/native/com_android_icu_charset_NativeConverter.cpp    | 2 +-
+ .../src/native/com_android_icu_util_CaseMapperNative.cpp      | 4 ++--
+ .../src/native/com_android_icu_util_ICU4CMetadata.cpp         | 2 +-
+ .../src/native/com_android_icu_util_LocaleNative.cpp          | 4 ++--
+ .../src/native/com_android_icu_util_regex_MatcherNative.cpp   | 2 +-
+ .../src/native/com_android_icu_util_regex_PatternNative.cpp   | 2 +-
+ 6 files changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/android_icu4j/libcore_bridge/src/native/com_android_icu_charset_NativeConverter.cpp b/android_icu4j/libcore_bridge/src/native/com_android_icu_charset_NativeConverter.cpp
+index a2028e977..5adc5695e 100644
+--- a/android_icu4j/libcore_bridge/src/native/com_android_icu_charset_NativeConverter.cpp
++++ b/android_icu4j/libcore_bridge/src/native/com_android_icu_charset_NativeConverter.cpp
+@@ -665,7 +665,7 @@ static jlong NativeConverter_getNativeFinalizer(JNIEnv*, jclass) {
+     return reinterpret_cast<jlong>(&FreeNativeConverter);
+ }
+ 
+-static JNINativeMethod gMethods[] = {
++static const JNINativeMethod gMethods[] = {
+     NATIVE_METHOD(NativeConverter, charsetForName, "(Ljava/lang/String;)Ljava/nio/charset/Charset;"),
+     NATIVE_METHOD(NativeConverter, closeConverter, "(J)V"),
+     NATIVE_METHOD(NativeConverter, contains, "(Ljava/lang/String;Ljava/lang/String;)Z"),
+diff --git a/android_icu4j/libcore_bridge/src/native/com_android_icu_util_CaseMapperNative.cpp b/android_icu4j/libcore_bridge/src/native/com_android_icu_util_CaseMapperNative.cpp
+index 3d59d0161..57c063dc7 100644
+--- a/android_icu4j/libcore_bridge/src/native/com_android_icu_util_CaseMapperNative.cpp
++++ b/android_icu4j/libcore_bridge/src/native/com_android_icu_util_CaseMapperNative.cpp
+@@ -54,11 +54,11 @@ static jstring CaseMapperNative_toUpperCase(JNIEnv* env, jclass, jstring javaStr
+   return s == original ? javaString : jniCreateString(env, s.getBuffer(), s.length());
+ }
+ 
+-static JNINativeMethod gMethods[] = {
++static const JNINativeMethod gMethods[] = {
+     NATIVE_METHOD(CaseMapperNative, toLowerCase, "(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;"),
+     NATIVE_METHOD(CaseMapperNative, toUpperCase, "(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;"),
+ };
+ 
+ void register_com_android_icu_util_CaseMapperNative(JNIEnv* env) {
+   jniRegisterNativeMethods(env, "com/android/icu/util/CaseMapperNative", gMethods, NELEM(gMethods));
+-}
+\ No newline at end of file
++}
+diff --git a/android_icu4j/libcore_bridge/src/native/com_android_icu_util_ICU4CMetadata.cpp b/android_icu4j/libcore_bridge/src/native/com_android_icu_util_ICU4CMetadata.cpp
+index 23753175a..bdec0d0a9 100644
+--- a/android_icu4j/libcore_bridge/src/native/com_android_icu_util_ICU4CMetadata.cpp
++++ b/android_icu4j/libcore_bridge/src/native/com_android_icu_util_ICU4CMetadata.cpp
+@@ -58,7 +58,7 @@ static jstring Icu4cMetadata_getTzdbVersion(JNIEnv* env, jclass) {
+    return env->NewStringUTF(version);
+ }
+ 
+-static JNINativeMethod gMethods[] = {
++static const JNINativeMethod gMethods[] = {
+     NATIVE_METHOD(Icu4cMetadata, getCldrVersion, "()Ljava/lang/String;"),
+     NATIVE_METHOD(Icu4cMetadata, getIcuVersion, "()Ljava/lang/String;"),
+     NATIVE_METHOD(Icu4cMetadata, getUnicodeVersion, "()Ljava/lang/String;"),
+diff --git a/android_icu4j/libcore_bridge/src/native/com_android_icu_util_LocaleNative.cpp b/android_icu4j/libcore_bridge/src/native/com_android_icu_util_LocaleNative.cpp
+index d2735e3e9..6d600cd6e 100644
+--- a/android_icu4j/libcore_bridge/src/native/com_android_icu_util_LocaleNative.cpp
++++ b/android_icu4j/libcore_bridge/src/native/com_android_icu_util_LocaleNative.cpp
+@@ -81,7 +81,7 @@ static jstring LocaleNative_getDisplayVariantNative(JNIEnv* env, jclass, jstring
+   return jniCreateString(env, str.getBuffer(), str.length());
+ }
+ 
+-static JNINativeMethod gMethods[] = {
++static const JNINativeMethod gMethods[] = {
+     NATIVE_METHOD(LocaleNative, getDisplayCountryNative, "(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;"),
+     NATIVE_METHOD(LocaleNative, getDisplayLanguageNative, "(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;"),
+     NATIVE_METHOD(LocaleNative, getDisplayScriptNative, "(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;"),
+@@ -90,4 +90,4 @@ static JNINativeMethod gMethods[] = {
+ 
+ void register_com_android_icu_util_LocaleNative(JNIEnv* env) {
+   jniRegisterNativeMethods(env, "com/android/icu/util/LocaleNative", gMethods, NELEM(gMethods));
+-}
+\ No newline at end of file
++}
+diff --git a/android_icu4j/libcore_bridge/src/native/com_android_icu_util_regex_MatcherNative.cpp b/android_icu4j/libcore_bridge/src/native/com_android_icu_util_regex_MatcherNative.cpp
+index 2d775ce07..a09420b14 100644
+--- a/android_icu4j/libcore_bridge/src/native/com_android_icu_util_regex_MatcherNative.cpp
++++ b/android_icu4j/libcore_bridge/src/native/com_android_icu_util_regex_MatcherNative.cpp
+@@ -131,7 +131,7 @@ static void MatcherNative_useTransparentBoundsImpl(JNIEnv*, jclass, jlong addr,
+ }
+ 
+ 
+-static JNINativeMethod gMethods[] = {
++static const JNINativeMethod gMethods[] = {
+     NATIVE_METHOD(MatcherNative, findImpl, "(JI[I)Z"),
+     NATIVE_METHOD(MatcherNative, findNextImpl, "(J[I)Z"),
+     NATIVE_METHOD(MatcherNative, getNativeFinalizer, "()J"),
+diff --git a/android_icu4j/libcore_bridge/src/native/com_android_icu_util_regex_PatternNative.cpp b/android_icu4j/libcore_bridge/src/native/com_android_icu_util_regex_PatternNative.cpp
+index e1cb0f67e..0b82ca087 100644
+--- a/android_icu4j/libcore_bridge/src/native/com_android_icu_util_regex_PatternNative.cpp
++++ b/android_icu4j/libcore_bridge/src/native/com_android_icu_util_regex_PatternNative.cpp
+@@ -126,7 +126,7 @@ static jint PatternNative_getMatchedGroupIndexImpl(JNIEnv* env, jclass, jlong ad
+ }
+ 
+ 
+-static JNINativeMethod gMethods[] = {
++static const JNINativeMethod gMethods[] = {
+     NATIVE_METHOD(PatternNative, compileImpl, "(Ljava/lang/String;I)J"),
+     NATIVE_METHOD(PatternNative, getNativeFinalizer, "()J"),
+     NATIVE_METHOD(PatternNative, openMatcherImpl, "(J)J"),
+-- 
+2.20.1
+

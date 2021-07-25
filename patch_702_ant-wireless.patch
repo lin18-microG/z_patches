@@ -1,0 +1,26 @@
+From 195cef294688da813781a40efbf79677dee44bf6 Mon Sep 17 00:00:00 2001
+From: Daniel Micay <danielmicay@gmail.com>
+Date: Sun, 17 Mar 2019 20:00:00 -0400
+Subject: [PATCH] constify JNINativeMethod table(s)
+
+Change-Id: I818f1e26b81624300c83161851d085c9a94eaf85
+---
+ src/common/JAntNative.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/common/JAntNative.cpp b/src/common/JAntNative.cpp
+index 9653bfd..2a560be 100644
+--- a/src/common/JAntNative.cpp
++++ b/src/common/JAntNative.cpp
+@@ -305,7 +305,7 @@ extern "C"
+    }
+ }
+ 
+-static JNINativeMethod g_sMethods[] =
++static const JNINativeMethod g_sMethods[] =
+ {
+    /* name, signature, funcPtr */
+    {"nativeJAnt_Create", "()I", (void*)nativeJAnt_Create},
+-- 
+2.11.0
+
