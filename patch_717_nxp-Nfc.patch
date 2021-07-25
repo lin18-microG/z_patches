@@ -1,0 +1,264 @@
+From d33933487c5b8603304aad36d1c5954691255838 Mon Sep 17 00:00:00 2001
+From: Daniel Micay <danielmicay@gmail.com>
+Date: Wed, 9 Sep 2020 12:28:42 -0400
+Subject: [PATCH] constify JNINativeMethod tables
+
+Change-Id: I593b2f165eed1bcf23f6ffb9d053db3b2e410f0b
+---
+ nci/SN100x/jni/NativeLlcpConnectionlessSocket.cpp | 2 +-
+ nci/SN100x/jni/NativeLlcpServiceSocket.cpp        | 2 +-
+ nci/SN100x/jni/NativeLlcpSocket.cpp               | 2 +-
+ nci/SN100x/jni/NativeMposManager.cpp              | 2 +-
+ nci/SN100x/jni/NativeNfcManager.cpp               | 2 +-
+ nci/SN100x/jni/NativeNfcTag.cpp                   | 2 +-
+ nci/SN100x/jni/NativeP2pDevice.cpp                | 2 +-
+ nci/SN100x/jni/NativeSecureElement.cpp            | 2 +-
+ nci/SN100x/jni/NativeT4tNfceeManager.cpp          | 2 +-
+ nci/jni/NativeLlcpConnectionlessSocket.cpp        | 2 +-
+ nci/jni/NativeLlcpServiceSocket.cpp               | 2 +-
+ nci/jni/NativeLlcpSocket.cpp                      | 2 +-
+ nci/jni/NativeMposManager.cpp                     | 2 +-
+ nci/jni/NativeNfcManager.cpp                      | 2 +-
+ nci/jni/NativeNfcTag.cpp                          | 2 +-
+ nci/jni/NativeP2pDevice.cpp                       | 2 +-
+ nci/jni/NativeSecureElement.cpp                   | 2 +-
+ nci/jni/NativeT4tNfceeManager.cpp                 | 2 +-
+ 18 files changed, 18 insertions(+), 18 deletions(-)
+
+diff --git a/nci/SN100x/jni/NativeLlcpConnectionlessSocket.cpp b/nci/SN100x/jni/NativeLlcpConnectionlessSocket.cpp
+index 2eeb198e..f8750492 100644
+--- a/nci/SN100x/jni/NativeLlcpConnectionlessSocket.cpp
++++ b/nci/SN100x/jni/NativeLlcpConnectionlessSocket.cpp
+@@ -283,7 +283,7 @@ static jboolean nativeLlcpConnectionlessSocket_doClose(JNIEnv* e, jobject o) {
+ ** Description:     JNI functions
+ **
+ *****************************************************************************/
+-static JNINativeMethod gMethods[] = {
++static const JNINativeMethod gMethods[] = {
+     {"doSendTo", "(I[B)Z", (void*)nativeLlcpConnectionlessSocket_doSendTo},
+     {"doReceiveFrom", "(I)Lcom/android/nfc/LlcpPacket;",
+      (void*)nativeLlcpConnectionlessSocket_doReceiveFrom},
+diff --git a/nci/SN100x/jni/NativeLlcpServiceSocket.cpp b/nci/SN100x/jni/NativeLlcpServiceSocket.cpp
+index 76ffeea5..4d2297c4 100644
+--- a/nci/SN100x/jni/NativeLlcpServiceSocket.cpp
++++ b/nci/SN100x/jni/NativeLlcpServiceSocket.cpp
+@@ -128,7 +128,7 @@ static jboolean nativeLlcpServiceSocket_doClose(JNIEnv* e, jobject o) {
+ ** Description:     JNI functions
+ **
+ *****************************************************************************/
+-static JNINativeMethod gMethods[] = {
++static const JNINativeMethod gMethods[] = {
+     {"doAccept", "(III)Lcom/android/nfc/dhimpl/NativeLlcpSocket;",
+      (void*)nativeLlcpServiceSocket_doAccept},
+     {"doClose", "()Z", (void*)nativeLlcpServiceSocket_doClose},
+diff --git a/nci/SN100x/jni/NativeLlcpSocket.cpp b/nci/SN100x/jni/NativeLlcpSocket.cpp
+index 0ee0d248..fa49ec94 100644
+--- a/nci/SN100x/jni/NativeLlcpSocket.cpp
++++ b/nci/SN100x/jni/NativeLlcpSocket.cpp
+@@ -214,7 +214,7 @@ static jint nativeLlcpSocket_doGetRemoteSocketRW(JNIEnv* e, jobject o) {
+ ** Description:     JNI functions
+ **
+ *****************************************************************************/
+-static JNINativeMethod gMethods[] = {
++static const JNINativeMethod gMethods[] = {
+     {"doConnect", "(I)Z", (void*)nativeLlcpSocket_doConnect},
+     {"doConnectBy", "(Ljava/lang/String;)Z",
+      (void*)nativeLlcpSocket_doConnectBy},
+diff --git a/nci/SN100x/jni/NativeMposManager.cpp b/nci/SN100x/jni/NativeMposManager.cpp
+index d69f5a43..02bf8bf6 100644
+--- a/nci/SN100x/jni/NativeMposManager.cpp
++++ b/nci/SN100x/jni/NativeMposManager.cpp
+@@ -193,7 +193,7 @@ static const char* covertToString(POWER_MODE mode)
+ ** Description:     JNI functions
+ **
+ *****************************************************************************/
+-static JNINativeMethod gMethods[] = {
++static const JNINativeMethod gMethods[] = {
+     {"doMposSetReaderMode", "(Z)I",
+      (void*)nativeNfcMposManage_doMposSetReaderMode},
+     {"doMposGetReaderMode", "()Z",
+diff --git a/nci/SN100x/jni/NativeNfcManager.cpp b/nci/SN100x/jni/NativeNfcManager.cpp
+index 166bd739..71a2765a 100644
+--- a/nci/SN100x/jni/NativeNfcManager.cpp
++++ b/nci/SN100x/jni/NativeNfcManager.cpp
+@@ -3065,7 +3065,7 @@ static jboolean nfcManager_doSetNfcSecure(JNIEnv* e, jobject o,
+ ** JNI functions for android-4.0.1_r1
+ **
+ *****************************************************************************/
+-static JNINativeMethod gMethods[] = {
++static const JNINativeMethod gMethods[] = {
+     {"doDownload", "()Z", (void*)nfcManager_doDownload},
+ 
+     {"initializeNativeStructure", "()Z", (void*)nfcManager_initNativeStruc},
+diff --git a/nci/SN100x/jni/NativeNfcTag.cpp b/nci/SN100x/jni/NativeNfcTag.cpp
+index 833aac93..aebd5885 100644
+--- a/nci/SN100x/jni/NativeNfcTag.cpp
++++ b/nci/SN100x/jni/NativeNfcTag.cpp
+@@ -2224,7 +2224,7 @@ void nativeNfcTag_abortTagOperations(tNFA_STATUS status) {
+ ** JNI functions for Android 4.0.3
+ **
+ *****************************************************************************/
+-static JNINativeMethod gMethods[] = {
++static const JNINativeMethod gMethods[] = {
+     {"doConnect", "(I)I", (void*)nativeNfcTag_doConnect},
+     {"doDisconnect", "()Z", (void*)nativeNfcTag_doDisconnect},
+     {"doReconnect", "()I", (void*)nativeNfcTag_doReconnect},
+diff --git a/nci/SN100x/jni/NativeP2pDevice.cpp b/nci/SN100x/jni/NativeP2pDevice.cpp
+index 23f5db41..396c6d0c 100644
+--- a/nci/SN100x/jni/NativeP2pDevice.cpp
++++ b/nci/SN100x/jni/NativeP2pDevice.cpp
+@@ -58,7 +58,7 @@ static jboolean nativeP2pDeviceDoSend(JNIEnv*, jobject, jbyteArray) {
+ ** Description:     JNI functions
+ **
+ *****************************************************************************/
+-static JNINativeMethod gMethods[] = {
++static const JNINativeMethod gMethods[] = {
+     {"doConnect", "()Z", (void*)nativeP2pDeviceDoConnect},
+     {"doDisconnect", "()Z", (void*)nativeP2pDeviceDoDisconnect},
+     {"doTransceive", "([B)[B", (void*)nativeP2pDeviceDoTransceive},
+diff --git a/nci/SN100x/jni/NativeSecureElement.cpp b/nci/SN100x/jni/NativeSecureElement.cpp
+index 68ed8aba..65bbb03c 100644
+--- a/nci/SN100x/jni/NativeSecureElement.cpp
++++ b/nci/SN100x/jni/NativeSecureElement.cpp
+@@ -373,7 +373,7 @@ static jint nfcManager_dodeactivateSeInterface(JNIEnv* e, jobject o) {
+ ** Description:     JNI functions
+ **
+ *****************************************************************************/
+-static JNINativeMethod gMethods[] = {
++static const JNINativeMethod gMethods[] = {
+     {"doNativeOpenSecureElementConnection", "()I",
+      (void*)nativeNfcSecureElement_doOpenSecureElementConnection},
+     {"doNativeDisconnectSecureElementConnection", "(I)Z",
+diff --git a/nci/SN100x/jni/NativeT4tNfceeManager.cpp b/nci/SN100x/jni/NativeT4tNfceeManager.cpp
+index 7fc7a2ca..48857781 100644
+--- a/nci/SN100x/jni/NativeT4tNfceeManager.cpp
++++ b/nci/SN100x/jni/NativeT4tNfceeManager.cpp
+@@ -112,7 +112,7 @@ jboolean t4tNfceeManager_isLockedT4tData(JNIEnv* e, jobject o) {
+  ** Description:     JNI functions
+  **
+  *****************************************************************************/
+-static JNINativeMethod gMethods[] = {
++static const JNINativeMethod gMethods[] = {
+     {"doWriteT4tData", "([B[BI)I", (void*)t4tNfceeManager_doWriteT4tData},
+     {"doReadT4tData", "([B)[B", (void*)t4tNfceeManager_doReadT4tData},
+     {"doLockT4tData", "(Z)Z", (void*)t4tNfceeManager_doLockT4tData},
+diff --git a/nci/jni/NativeLlcpConnectionlessSocket.cpp b/nci/jni/NativeLlcpConnectionlessSocket.cpp
+index 0d588e4f..5edeec08 100644
+--- a/nci/jni/NativeLlcpConnectionlessSocket.cpp
++++ b/nci/jni/NativeLlcpConnectionlessSocket.cpp
+@@ -282,7 +282,7 @@ static jboolean nativeLlcpConnectionlessSocket_doClose(JNIEnv* e, jobject o) {
+ ** Description:     JNI functions
+ **
+ *****************************************************************************/
+-static JNINativeMethod gMethods[] = {
++static const JNINativeMethod gMethods[] = {
+     {"doSendTo", "(I[B)Z", (void*)nativeLlcpConnectionlessSocket_doSendTo},
+     {"doReceiveFrom", "(I)Lcom/android/nfc/LlcpPacket;",
+      (void*)nativeLlcpConnectionlessSocket_doReceiveFrom},
+diff --git a/nci/jni/NativeLlcpServiceSocket.cpp b/nci/jni/NativeLlcpServiceSocket.cpp
+index edafbf89..9718dabb 100644
+--- a/nci/jni/NativeLlcpServiceSocket.cpp
++++ b/nci/jni/NativeLlcpServiceSocket.cpp
+@@ -128,7 +128,7 @@ static jboolean nativeLlcpServiceSocket_doClose(JNIEnv* e, jobject o) {
+ ** Description:     JNI functions
+ **
+ *****************************************************************************/
+-static JNINativeMethod gMethods[] = {
++static const JNINativeMethod gMethods[] = {
+     {"doAccept", "(III)Lcom/android/nfc/dhimpl/NativeLlcpSocket;",
+      (void*)nativeLlcpServiceSocket_doAccept},
+     {"doClose", "()Z", (void*)nativeLlcpServiceSocket_doClose},
+diff --git a/nci/jni/NativeLlcpSocket.cpp b/nci/jni/NativeLlcpSocket.cpp
+index eb4087ab..93222415 100644
+--- a/nci/jni/NativeLlcpSocket.cpp
++++ b/nci/jni/NativeLlcpSocket.cpp
+@@ -213,7 +213,7 @@ static jint nativeLlcpSocket_doGetRemoteSocketRW(JNIEnv* e, jobject o) {
+ ** Description:     JNI functions
+ **
+ *****************************************************************************/
+-static JNINativeMethod gMethods[] = {
++static const JNINativeMethod gMethods[] = {
+     {"doConnect", "(I)Z", (void*)nativeLlcpSocket_doConnect},
+     {"doConnectBy", "(Ljava/lang/String;)Z",
+      (void*)nativeLlcpSocket_doConnectBy},
+diff --git a/nci/jni/NativeMposManager.cpp b/nci/jni/NativeMposManager.cpp
+index ebe0318f..be5d0d06 100644
+--- a/nci/jni/NativeMposManager.cpp
++++ b/nci/jni/NativeMposManager.cpp
+@@ -189,7 +189,7 @@ static const char* covertToString(POWER_MODE mode) {
+ ** Description:     JNI functions
+ **
+ *****************************************************************************/
+-static JNINativeMethod gMethods[] = {
++static const JNINativeMethod gMethods[] = {
+     {"doMposSetReaderMode", "(Z)I",
+      (void*)nativeNfcMposManage_doMposSetReaderMode},
+ 
+diff --git a/nci/jni/NativeNfcManager.cpp b/nci/jni/NativeNfcManager.cpp
+index c8a8bf92..979d6fdb 100644
+--- a/nci/jni/NativeNfcManager.cpp
++++ b/nci/jni/NativeNfcManager.cpp
+@@ -4453,7 +4453,7 @@ static void restartUiccListen(jint uiccSlot) {
+   ** JNI functions for android-4.0.1_r1
+   **
+   *****************************************************************************/
+-  static JNINativeMethod gMethods[] = {
++  static const JNINativeMethod gMethods[] = {
+     {"doDownload", "()Z", (void*)nfcManager_doDownload},
+ 
+     {"initializeNativeStructure", "()Z", (void*)nfcManager_initNativeStruc},
+diff --git a/nci/jni/NativeNfcTag.cpp b/nci/jni/NativeNfcTag.cpp
+index 7c65c401..e33701ef 100644
+--- a/nci/jni/NativeNfcTag.cpp
++++ b/nci/jni/NativeNfcTag.cpp
+@@ -2684,7 +2684,7 @@ void nativeNfcTag_releaseRfInterfaceMutexLock() {
+ ** JNI functions for Android 4.0.3
+ **
+ *****************************************************************************/
+-static JNINativeMethod gMethods[] = {
++static const JNINativeMethod gMethods[] = {
+     {"doConnect", "(I)I", (void*)nativeNfcTag_doConnect},
+     {"doDisconnect", "()Z", (void*)nativeNfcTag_doDisconnect},
+     {"doReconnect", "()I", (void*)nativeNfcTag_doReconnect},
+diff --git a/nci/jni/NativeP2pDevice.cpp b/nci/jni/NativeP2pDevice.cpp
+index 352c81e1..727a41c6 100644
+--- a/nci/jni/NativeP2pDevice.cpp
++++ b/nci/jni/NativeP2pDevice.cpp
+@@ -57,7 +57,7 @@ static jboolean nativeP2pDeviceDoSend(JNIEnv*, jobject, jbyteArray) {
+ ** Description:     JNI functions
+ **
+ *****************************************************************************/
+-static JNINativeMethod gMethods[] = {
++static const JNINativeMethod gMethods[] = {
+     {"doConnect", "()Z", (void*)nativeP2pDeviceDoConnect},
+     {"doDisconnect", "()Z", (void*)nativeP2pDeviceDoDisconnect},
+     {"doTransceive", "([B)[B", (void*)nativeP2pDeviceDoTransceive},
+diff --git a/nci/jni/NativeSecureElement.cpp b/nci/jni/NativeSecureElement.cpp
+index 038b8712..08988232 100644
+--- a/nci/jni/NativeSecureElement.cpp
++++ b/nci/jni/NativeSecureElement.cpp
+@@ -585,7 +585,7 @@ static jint nfcManager_dodeactivateSeInterface(JNIEnv* e, jobject o) {
+ ** Description:     JNI functions
+ **
+ *****************************************************************************/
+-static JNINativeMethod gMethods[] = {
++static const JNINativeMethod gMethods[] = {
+     {"doNativeOpenSecureElementConnection", "()I",
+      (void*)nativeNfcSecureElement_doOpenSecureElementConnection},
+     {"doNativeDisconnectSecureElementConnection", "(I)Z",
+diff --git a/nci/jni/NativeT4tNfceeManager.cpp b/nci/jni/NativeT4tNfceeManager.cpp
+index e72d0a71..fef09643 100644
+--- a/nci/jni/NativeT4tNfceeManager.cpp
++++ b/nci/jni/NativeT4tNfceeManager.cpp
+@@ -116,7 +116,7 @@ jboolean t4tNfceeManager_isLockedT4tData(JNIEnv* e, jobject o) {
+  ** Description:     JNI functions
+  **
+  *****************************************************************************/
+-static JNINativeMethod gMethods[] = {
++static const JNINativeMethod gMethods[] = {
+     {"doWriteT4tData", "([B[BI)I", (void*)t4tNfceeManager_doWriteT4tData},
+     {"doReadT4tData", "([B)[B", (void*)t4tNfceeManager_doReadT4tData},
+     {"doLockT4tData", "(Z)Z", (void*)t4tNfceeManager_doLockT4tData},
+-- 
+2.20.1
+

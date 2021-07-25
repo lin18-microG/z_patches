@@ -1,0 +1,26 @@
+From fdf9ab14f3ff6f26e82154008df815a36af15d76 Mon Sep 17 00:00:00 2001
+From: Daniel Micay <danielmicay@gmail.com>
+Date: Sun, 17 Mar 2019 20:00:00 -0400
+Subject: [PATCH] constify JNINativeMethod tables
+
+Change-Id: I5eb8a9fa45e1b0cbb5b83ab8a7b583374f5d4635
+---
+ support/jni/android_renderscript_RenderScript.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/support/jni/android_renderscript_RenderScript.cpp b/support/jni/android_renderscript_RenderScript.cpp
+index b65243c2..a13c8381 100644
+--- a/support/jni/android_renderscript_RenderScript.cpp
++++ b/support/jni/android_renderscript_RenderScript.cpp
+@@ -2281,7 +2281,7 @@ nAllocationGetStride(JNIEnv *_env, jobject _this, jlong con, jlong alloc)
+ 
+ static const char *classPathName = "androidx/renderscript/RenderScript";
+ 
+-static JNINativeMethod methods[] = {
++static const JNINativeMethod methods[] = {
+ {"nLoadSO",                        "(ZILjava/lang/String;)Z",                 (bool*)nLoadSO },
+ {"nLoadIOSO",                      "()Z",                                     (bool*)nLoadIOSO },
+ {"nDeviceCreate",                  "()J",                                     (void*)nDeviceCreate },
+-- 
+2.11.0
+

@@ -1,0 +1,26 @@
+From 1ed175afd16094fd1a0a08a6ea167387374c7497 Mon Sep 17 00:00:00 2001
+From: Daniel Micay <danielmicay@gmail.com>
+Date: Sun, 17 Mar 2019 20:00:00 -0400
+Subject: [PATCH] constify JNINativeMethod table(s)
+
+Change-Id: Ic7415efbebf8506242cca6ebe695a26bb5a2dcfb
+---
+ jni/fmr/libfm_jni.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/jni/fmr/libfm_jni.cpp b/jni/fmr/libfm_jni.cpp
+index a906887..0f15950 100644
+--- a/jni/fmr/libfm_jni.cpp
++++ b/jni/fmr/libfm_jni.cpp
+@@ -333,7 +333,7 @@ out:
+ 
+ static const char *classPathNameRx = "com/android/fmradio/FmNative";
+ 
+-static JNINativeMethod methodsRx[] = {
++static const JNINativeMethod methodsRx[] = {
+     {"openDev", "()Z", (void*)openDev },  //1
+     {"closeDev", "()Z", (void*)closeDev }, //2
+     {"powerUp", "(F)Z", (void*)powerUp },  //3
+-- 
+2.11.0
+

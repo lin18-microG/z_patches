@@ -1,0 +1,26 @@
+From 8900db71692d3a4712481e1c28704fcabb1a0b1b Mon Sep 17 00:00:00 2001
+From: Daniel Micay <danielmicay@gmail.com>
+Date: Sun, 17 Mar 2019 20:00:00 -0400
+Subject: [PATCH] constify JNINativeMethod tables
+
+Change-Id: Id67f77ca8def63ed36fbae4d9c0c63af66134ae3
+---
+ fwk-detect/jni/com_qualcomm_qti_VndFwkDetect.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fwk-detect/jni/com_qualcomm_qti_VndFwkDetect.cpp b/fwk-detect/jni/com_qualcomm_qti_VndFwkDetect.cpp
+index 146792b..e06bad3 100644
+--- a/fwk-detect/jni/com_qualcomm_qti_VndFwkDetect.cpp
++++ b/fwk-detect/jni/com_qualcomm_qti_VndFwkDetect.cpp
+@@ -98,7 +98,7 @@ com_qualcomm_qti_VndFwkDetect_native_getVendorEnhancedInfo(JNIEnv *env, jobject
+ 
+     return 0;
+ }
+-static JNINativeMethod gMethods[] = {
++static const JNINativeMethod gMethods[] = {
+     {"native_isRunningWithVendorEnhancedFramework", "()I", (int*)com_qualcomm_qti_VndFwkDetect_native_isRunningWithVendorEnhancedFramework},
+     {"native_getVendorEnhancedInfo", "()I", (int*)com_qualcomm_qti_VndFwkDetect_native_getVendorEnhancedInfo}
+ };
+-- 
+2.11.0
+

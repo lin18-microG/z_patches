@@ -1,0 +1,26 @@
+From 24d1efe59013eee18051bb1c2f9143a06880f52d Mon Sep 17 00:00:00 2001
+From: Daniel Micay <danielmicay@gmail.com>
+Date: Sun, 17 Mar 2019 20:00:00 -0400
+Subject: [PATCH] constify JNINativeMethod table(s)
+
+Change-Id: I818f1e26b81624300c83161851d085c9a94eaf85
+---
+ FaceDetector_jni.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/FaceDetector_jni.cpp b/FaceDetector_jni.cpp
+index ab765fc..5392b0b 100644
+--- a/FaceDetector_jni.cpp
++++ b/FaceDetector_jni.cpp
+@@ -269,7 +269,7 @@ get_face(JNIEnv *_env, jobject _this,
+ 
+ static const char *classPathName = "android/media/FaceDetector";
+ 
+-static JNINativeMethod methods[] = {
++static const JNINativeMethod methods[] = {
+ {"nativeClassInit", "()V",                                  (void*)nativeClassInit },
+ {"fft_initialize",  "(III)I",                               (void*)initialize },
+ {"fft_detect",      "(Landroid/graphics/Bitmap;)I",         (void*)detect },
+-- 
+2.11.0
+

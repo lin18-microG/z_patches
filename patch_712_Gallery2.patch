@@ -1,0 +1,37 @@
+From 792334fdc5316ae291a67c1af35b95d6cb95243f Mon Sep 17 00:00:00 2001
+From: Daniel Micay <danielmicay@gmail.com>
+Date: Mon, 2 Nov 2020 11:14:05 -0500
+Subject: [PATCH] constify JNINativeMethod tables
+
+---
+ jni_jpegstream/src/jpegstream.cpp | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/jni_jpegstream/src/jpegstream.cpp b/jni_jpegstream/src/jpegstream.cpp
+index afff64ce1..4214944ab 100644
+--- a/jni_jpegstream/src/jpegstream.cpp
++++ b/jni_jpegstream/src/jpegstream.cpp
+@@ -296,12 +296,12 @@ static const char *outClassPathName =
+ static const char *inClassPathName =
+         "com/android/gallery3d/jpegstream/JPEGInputStream";
+ 
+-static JNINativeMethod writeMethods[] = { { "setup",
++static const JNINativeMethod writeMethods[] = { { "setup",
+         "(Ljava/io/OutputStream;IIII)I", (void*) OutputStream_setup }, {
+         "cleanup", "()V", (void*) OutputStream_cleanup }, { "writeInputBytes",
+         "([BII)I", (void*) OutputStream_writeInputBytes } };
+ 
+-static JNINativeMethod readMethods[] = { { "setup",
++static const JNINativeMethod readMethods[] = { { "setup",
+         "(Landroid/graphics/Point;Ljava/io/InputStream;I)I",
+         (void*) InputStream_setup }, { "cleanup", "()V",
+         (void*) InputStream_cleanup }, { "readDecodedBytes", "([BII)I",
+@@ -309,7 +309,7 @@ static JNINativeMethod readMethods[] = { { "setup",
+         (void*) InputStream_skipDecodedBytes } };
+ 
+ static int registerNativeMethods(JNIEnv* env, const char* className,
+-        JNINativeMethod* gMethods, int numMethods) {
++        const JNINativeMethod* gMethods, int numMethods) {
+     jclass clazz;
+     clazz = env->FindClass(className);
+     if (clazz == NULL) {
