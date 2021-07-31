@@ -46,6 +46,14 @@ patch -p1 < $THISDIR/patch_102_SetupWizard.patch
 echo "-"
 cd $TOPDIR
 
+cd $TOPDIR
+cd system/extras
+echo "Patching $PWD (pad filenames to 32 bytes)"
+patch -p1 < $THISDIR/patch_201_extras.patch
+echo "-"
+cd $TOPDIR
+
+
 list_repos | while read STR; do
   DIR=$(echo $STR | cut -f1 -d:)
   PTC=$(echo $STR | cut -f2 -d:)
