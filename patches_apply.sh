@@ -53,6 +53,13 @@ echo "-"
 cd $TOPDIR
 
 cd $TOPDIR
+cd system/bt
+echo "Patching $PWD (alloc_size attributes)"
+patch -p1 < $THISDIR/patch_202_bt.patch
+echo "-"
+cd $TOPDIR
+
+cd $TOPDIR
 cd system/extras
 echo "Patching $PWD (pad filenames to 32 bytes)"
 patch -p1 < $THISDIR/patch_201_extras.patch
