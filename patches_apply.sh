@@ -32,6 +32,12 @@ patch -p1 < $THISDIR/patch_050_device-common.patch
 echo "-"
 cd $TOPDIR
 
+cd external/openssh
+echo "Patching $PWD (hardened malloc compatibility fix)"
+patch -p1 < $THISDIR/patch_200_openssh.patch
+echo "-"
+cd $TOPDIR
+
 cd $TOPDIR
 cd packages/apps/Dialer
 echo "Patching $PWD (Remove Google forward lookup)"

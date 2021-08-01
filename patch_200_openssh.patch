@@ -1,0 +1,22 @@
+From 79f13a6f40deef7b5fbc3ff7585b1102fc3143eb Mon Sep 17 00:00:00 2001
+From: anupritaisno1 <www.anuprita804@gmail.com>
+Date: Thu, 6 Feb 2020 21:48:02 +0000
+Subject: [PATCH] fix for compatibility with hardened_malloc
+
+Signed-off-by: anupritaisno1 <www.anuprita804@gmail.com>
+---
+ openbsd-compat/openbsd-compat.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/openbsd-compat/openbsd-compat.h b/openbsd-compat/openbsd-compat.h
+index 865aaee5..2ac8b5d9 100644
+--- a/openbsd-compat/openbsd-compat.h
++++ b/openbsd-compat/openbsd-compat.h
+@@ -314,6 +314,7 @@ int	bcrypt_pbkdf(const char *, size_t, const u_int8_t *, size_t,
+     u_int8_t *, size_t, unsigned int);
+ #endif
+ 
++#define HAVE_EXPLICIT_BZERO
+ #ifndef HAVE_EXPLICIT_BZERO
+ void explicit_bzero(void *p, size_t n);
+ #endif
