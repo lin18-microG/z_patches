@@ -3,7 +3,7 @@
 print_help() {
   echo "usage: build_device <device> test|sign"
   echo "----------------------------------------------------------------------"
-  echo " <device> Device name (amami|h850|osprey|x86)"
+  echo " <device> Device name (h850|hotdog|oneplus3|x86)"
   echo "test - build with testkeys (insecure, but compatible)"
   echo "sign - create a signed build"
 }
@@ -15,7 +15,7 @@ print_device() {
 
 # Check parameters
 case "$1" in
-  amami|h850|osprey|x86)
+  h850|hotdog|oneplus3|x86)
      print_device $1
     ;;
   *) print_help
@@ -67,7 +67,7 @@ fi
 
 # Build emulator or device ?
 if [ "$1" == "x86" ] ; then
-  lunch lineage_x86-userdebug
+  lunch lineage_x86_64-userdebug
   mka sdk_addon
 else
   brunch $1
