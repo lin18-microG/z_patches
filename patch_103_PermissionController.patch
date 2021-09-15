@@ -1,0 +1,25 @@
+From 74a73269f8afbc78ccd65dd12bbacbb804d3d969 Mon Sep 17 00:00:00 2001
+From: Daniel Micay <danielmicay@gmail.com>
+Date: Tue, 16 Mar 2021 03:27:53 -0400
+Subject: [PATCH] enable camera/microphone indicators by default
+
+---
+ src/com/android/permissioncontroller/permission/debug/Utils.kt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/com/android/permissioncontroller/permission/debug/Utils.kt b/src/com/android/permissioncontroller/permission/debug/Utils.kt
+index fd75d3b79..0c01b90ea 100644
+--- a/src/com/android/permissioncontroller/permission/debug/Utils.kt
++++ b/src/com/android/permissioncontroller/permission/debug/Utils.kt
+@@ -56,7 +56,7 @@ fun shouldShowPermissionsDashboard(): Boolean {
+  */
+ fun isCameraMicIconsFlagEnabled(): Boolean {
+     return DeviceConfig.getBoolean(DeviceConfig.NAMESPACE_PRIVACY,
+-        PROPERTY_CAMERA_MIC_ICONS_ENABLED, false)
++        PROPERTY_CAMERA_MIC_ICONS_ENABLED, true)
+ }
+ 
+ /**
+-- 
+2.20.1
+
