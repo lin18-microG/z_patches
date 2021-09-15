@@ -46,6 +46,13 @@ echo "-"
 cd $TOPDIR
 
 cd $TOPDIR
+cd packages/apps/PermissionController
+echo "Patching $PWD (Privacy Indicators)"
+patch -p1 < $THISDIR/patch_103_PermissionController.patch
+echo "-"
+cd $TOPDIR
+
+cd $TOPDIR
 cd packages/apps/SetupWizard
 echo "Patching $PWD (Suggest disabled metrics by default)"
 patch -p1 < $THISDIR/patch_102_SetupWizard.patch
