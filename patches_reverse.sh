@@ -18,6 +18,7 @@ cd ..
 TOPDIR=$PWD
 
 
+clear_set packages/apps/Settings
 clear_set vendor/lineage
 
 cd $THISDIR
