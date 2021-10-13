@@ -4,6 +4,7 @@ Date: Fri, 3 Jan 2020 20:32:49 +0100
 Subject: [PATCH 2/2] amami: Add device-specific overlay for changelog
 
 To avoid having to fork the device repo just for the Updater changelog
+Adapted for 18.1 on 2021-10-13
 
 Change-Id: I4308447f60d55fbe035351fc58aaecc2188bb1be
 ---
@@ -22,7 +23,7 @@ index dd02b91c..f4a6cce6 100644
  
 +# Updater URI and changelog
 +PRODUCT_PROPERTY_OVERRIDES += \
-+    lineage.updater.uri=https://raw.githubusercontent.com/lin17-microG/OTA/lineage-17.1/$(LINEAGE_BUILD).json
++    lineage.updater.uri=https://raw.githubusercontent.com/lin18-microG/OTA/lineage-18.1/$(LINEAGE_BUILD).json
 +DEVICE_PACKAGE_OVERLAYS += \
 +    vendor/lineage/overlay/changelog/$(LINEAGE_BUILD)
 +
@@ -38,7 +39,7 @@ index 00000000..f023f6d0
 +<?xml version="1.0" encoding="utf-8"?>
 +<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 +
-+    <string name="menu_changelog_url" translatable="false">https://raw.githubusercontent.com/lin17-microG/OTA/changelog/amami_changelog.md</string>
++    <string name="menu_changelog_url" translatable="false">https://raw.githubusercontent.com/lin18-microG/OTA/changelog/amami_changelog.md</string>
 +
 +</resources>
 -- 
