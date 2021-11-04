@@ -13,7 +13,6 @@ hardware/qcom-caf/common:patch_709_qc-common.patch
 lineage-sdk:patch_710_lineage-sdk.patch
 packages/apps/FMRadio:patch_711_FMRadio.patch
 packages/apps/Gallery2:patch_712_Gallery2.patch
-packages/apps/Terminal:patch_715_Terminal.patch
 vendor/qcom/opensource/fm-commonsys:patch_716_fm-commonsys.patch
 vendor/nxp/opensource/commonsys/packages/apps/Nfc:patch_717_nxp-Nfc.patch
 vendor/qcom/opensource/libfmjni:patch_718_libfmjni.patch
