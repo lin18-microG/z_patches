@@ -31,6 +31,12 @@ patch -p1 < $THISDIR/patch_050_device-common.patch
 echo "-"
 cd $TOPDIR
 
+cd device/oneplus/hotdog
+echo "Patching $PWD (prevent recovery from being overwritten)"
+patch -p1 < $THISDIR/patch_020_hotdog-recovery.patch
+echo "-"
+cd $TOPDIR
+
 cd external/openssh
 echo "Patching $PWD (hardened malloc compatibility fix)"
 patch -p1 < $THISDIR/patch_200_openssh.patch

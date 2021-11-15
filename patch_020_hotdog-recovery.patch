@@ -1,0 +1,31 @@
+From cc27c3d3ffdb5fa3553e2410b81857b7df6d38b7 Mon Sep 17 00:00:00 2001
+From: MSe1969 <mse1969@posteo.de>
+Date: Mon, 15 Nov 2021 18:45:53 +0100
+Subject: [PATCH] Exclude recovery as A/B OTA partition
+
+As I use a special version of the Lineage recovery for the hardened build,
+I would like to avoid, that the recovery always gets overwritten, when
+flashing LineageOS.
+
+Credits to: stay steadfast <steadfasterX@users.noreply.github.com>
+
+Change-Id: I8d4a6435576b3a1503e455bd696720ac1bb700aa
+---
+ BoardConfig.mk | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/BoardConfig.mk b/BoardConfig.mk
+index e715489..a0ab163 100644
+--- a/BoardConfig.mk
++++ b/BoardConfig.mk
+@@ -12,7 +12,6 @@ DEVICE_PATH := device/oneplus/hotdog
+ AB_OTA_PARTITIONS += \
+     odm \
+     product \
+-    recovery \
+     system_ext \
+     vbmeta_system
+ 
+-- 
+2.20.1
+
