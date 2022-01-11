@@ -9,6 +9,7 @@ clear_set() {
   find -name *.rej | while read LINE; do rm $LINE; done
   git clean -f > /dev/null
   git stash clear > /dev/null
+  git stash > /dev/null
   cd $TOPDIR
 }
 
