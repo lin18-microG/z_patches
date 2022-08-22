@@ -18,6 +18,7 @@ THISDIR=$PWD
 cd ..
 TOPDIR=$PWD
 
+clear_set bionic
 clear_set device/common
 clear_set external/ant-wireless/ant_native
 clear_set external/conscrypt
