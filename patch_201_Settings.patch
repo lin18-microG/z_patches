@@ -1,0 +1,26 @@
+From d87ef4d1f666b42ed09d703f447d77f9ba5d3a0d Mon Sep 17 00:00:00 2001
+From: MSe <mse1969@posteo.de>
+Date: Mon, 22 Aug 2022 15:28:56 +0200
+Subject: [PATCH] LowRAM device: Disable exec spawning by default
+
+Change-Id: I2ee0e350a1d513485bdb5974ab41a83fbe018870
+---
+ .../settings/security/ExecSpawnPreferenceController.java        | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/com/android/settings/security/ExecSpawnPreferenceController.java b/src/com/android/settings/security/ExecSpawnPreferenceController.java
+index 78f021210a..3e88162e64 100644
+--- a/src/com/android/settings/security/ExecSpawnPreferenceController.java
++++ b/src/com/android/settings/security/ExecSpawnPreferenceController.java
+@@ -79,7 +79,7 @@ public class ExecSpawnPreferenceController extends AbstractPreferenceController
+ 
+         if (mIsAdmin) {
+             mExecSpawn = (SwitchPreference) mSecurityCategory.findPreference(PREF_KEY_EXEC_SPAWN);
+-            mExecSpawn.setChecked(SystemProperties.getBoolean(SYS_KEY_EXEC_SPAWN, true));
++            mExecSpawn.setChecked(SystemProperties.getBoolean(SYS_KEY_EXEC_SPAWN, false));
+         } else {
+             mSecurityCategory.removePreference(mSecurityCategory.findPreference(PREF_KEY_EXEC_SPAWN));
+         }
+-- 
+2.30.2
+

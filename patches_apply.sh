@@ -31,26 +31,36 @@ patch -p1 < $THISDIR/patch_050_device-common.patch
 echo "-"
 cd $TOPDIR
 
+cd frameworks/base
+echo "Patching $PWD (LowRAM - disable exec spawning by default)"
+patch -p1 < $THISDIR/patch_200_base.patch
+echo "-"
 cd $TOPDIR
+
+cd packages/apps/Settings
+echo "Patching $PWD (LowRAM - disable exec spawning by default)"
+patch -p1 < $THISDIR/patch_201_Settings.patch
+echo "-"
+cd $TOPDIR
+
 cd packages/apps/Dialer
 echo "Patching $PWD (Remove Google forward lookup)"
 patch -p1 < $THISDIR/patch_101_Dialer.patch
 echo "-"
 cd $TOPDIR
 
-cd $TOPDIR
 cd packages/apps/PermissionController
 echo "Patching $PWD (Privacy Indicators)"
 patch -p1 < $THISDIR/patch_103_PermissionController.patch
 echo "-"
 cd $TOPDIR
 
-cd $TOPDIR
 cd packages/apps/SetupWizard
 echo "Patching $PWD (Suggest disabled metrics by default)"
 patch -p1 < $THISDIR/patch_102_SetupWizard.patch
 echo "-"
 cd $TOPDIR
+
 
 list_repos | while read STR; do
   DIR=$(echo $STR | cut -f1 -d:)

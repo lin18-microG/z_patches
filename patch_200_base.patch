@@ -1,0 +1,26 @@
+From 7c97769198e3be93780815825be878ee3de248a8 Mon Sep 17 00:00:00 2001
+From: MSe <mse1969@posteo.de>
+Date: Mon, 22 Aug 2022 15:26:14 +0200
+Subject: [PATCH] LowRAM device: Disable exec spawning by default
+
+Change-Id: I7f838593a14f5d05edbdd5b092759152d4758332
+---
+ core/java/com/android/internal/os/ZygoteConnection.java | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/core/java/com/android/internal/os/ZygoteConnection.java b/core/java/com/android/internal/os/ZygoteConnection.java
+index d10a73636e9..3e55c497ad6 100644
+--- a/core/java/com/android/internal/os/ZygoteConnection.java
++++ b/core/java/com/android/internal/os/ZygoteConnection.java
+@@ -502,7 +502,7 @@ class ZygoteConnection {
+             throw new IllegalStateException("WrapperInit.execApplication unexpectedly returned");
+         } else {
+             if (!isZygote) {
+-                if (SystemProperties.getBoolean("persist.security.exec_spawn", true) &&
++                if (SystemProperties.getBoolean("persist.security.exec_spawn", false) &&
+                         (parsedArgs.mRuntimeFlags & ApplicationInfo.FLAG_DEBUGGABLE) == 0) {
+                     ExecInit.execApplication(parsedArgs.mNiceName, parsedArgs.mTargetSdkVersion,
+                             VMRuntime.getCurrentInstructionSet(), parsedArgs.mRuntimeFlags, parsedArgs.mRemainingArgs);
+-- 
+2.30.2
+
