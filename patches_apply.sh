@@ -25,6 +25,12 @@ THISDIR=$PWD
 cd ..
 TOPDIR=$PWD
 
+cd bionic
+echo "Patching $PWD (GmsCompat)"
+patch -p1 < $THISDIR/patch_300_bionic.patch
+echo "-"
+cd $TOPDIR
+
 cd device/common
 echo "Patching $PWD (Use https f. common GPS configuration)"
 patch -p1 < $THISDIR/patch_050_device-common.patch
