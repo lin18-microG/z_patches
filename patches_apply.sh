@@ -49,38 +49,39 @@ patch -p1 < $THISDIR/patch_200_openssh.patch
 echo "-"
 cd $TOPDIR
 
-cd $TOPDIR
 cd packages/apps/Dialer
 echo "Patching $PWD (Remove Google forward lookup)"
 patch -p1 < $THISDIR/patch_101_Dialer.patch
 echo "-"
 cd $TOPDIR
 
-cd $TOPDIR
 cd packages/apps/PermissionController
 echo "Patching $PWD (Privacy Indicators)"
 patch -p1 < $THISDIR/patch_103_PermissionController.patch
 echo "-"
 cd $TOPDIR
 
-cd $TOPDIR
 cd packages/apps/SetupWizard
 echo "Patching $PWD (Suggest disabled metrics by default)"
 patch -p1 < $THISDIR/patch_102_SetupWizard.patch
 echo "-"
 cd $TOPDIR
 
-cd $TOPDIR
 cd system/bt
 echo "Patching $PWD (alloc_size attributes)"
 patch -p1 < $THISDIR/patch_202_bt.patch
 echo "-"
 cd $TOPDIR
 
-cd $TOPDIR
 cd system/extras
 echo "Patching $PWD (pad filenames to 32 bytes)"
 patch -p1 < $THISDIR/patch_201_extras.patch
+echo "-"
+cd $TOPDIR
+
+cd system/sepolicy
+echo "Patching $PWD (remove gmscore_app context)"
+patch -p1 < $THISDIR/patch_301_sepolicy.patch
 echo "-"
 cd $TOPDIR
 
