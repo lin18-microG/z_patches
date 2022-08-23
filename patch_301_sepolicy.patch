@@ -1,0 +1,43 @@
+From 89d2378d4be1e2992e14893877f37fe34e7a3031 Mon Sep 17 00:00:00 2001
+From: Daniel Micay <danielmicay@gmail.com>
+Date: Mon, 14 Sep 2020 23:59:13 -0400
+Subject: [PATCH] disable unused gmscore_app domain
+
+---
+ prebuilts/api/30.0/private/seapp_contexts | 4 ----
+ private/seapp_contexts                    | 4 ----
+ 2 files changed, 8 deletions(-)
+
+diff --git a/prebuilts/api/30.0/private/seapp_contexts b/prebuilts/api/30.0/private/seapp_contexts
+index a8c61be8f..25e450d4f 100644
+--- a/prebuilts/api/30.0/private/seapp_contexts
++++ b/prebuilts/api/30.0/private/seapp_contexts
+@@ -162,10 +162,6 @@ user=_app isPrivApp=true name=com.android.providers.media.module domain=mediapro
+ user=_app isPrivApp=true name=com.google.android.providers.media.module domain=mediaprovider_app type=privapp_data_file levelFrom=all
+ user=_app seinfo=platform isPrivApp=true name=com.android.permissioncontroller domain=permissioncontroller_app type=privapp_data_file levelFrom=all
+ user=_app isPrivApp=true name=com.android.vzwomatrigger domain=vzwomatrigger_app type=privapp_data_file levelFrom=all
+-user=_app isPrivApp=true name=com.google.android.gms domain=gmscore_app type=privapp_data_file levelFrom=user
+-user=_app isPrivApp=true name=com.google.android.gms.* domain=gmscore_app type=privapp_data_file levelFrom=user
+-user=_app isPrivApp=true name=com.google.android.gms:* domain=gmscore_app type=privapp_data_file levelFrom=user
+-user=_app isPrivApp=true name=com.google.android.gsf domain=gmscore_app type=privapp_data_file levelFrom=user
+ user=_app minTargetSdkVersion=30 domain=untrusted_app type=app_data_file levelFrom=all
+ user=_app minTargetSdkVersion=29 domain=untrusted_app_29 type=app_data_file levelFrom=all
+ user=_app minTargetSdkVersion=28 domain=untrusted_app_27 type=app_data_file levelFrom=all
+diff --git a/private/seapp_contexts b/private/seapp_contexts
+index a8c61be8f..25e450d4f 100644
+--- a/private/seapp_contexts
++++ b/private/seapp_contexts
+@@ -162,10 +162,6 @@ user=_app isPrivApp=true name=com.android.providers.media.module domain=mediapro
+ user=_app isPrivApp=true name=com.google.android.providers.media.module domain=mediaprovider_app type=privapp_data_file levelFrom=all
+ user=_app seinfo=platform isPrivApp=true name=com.android.permissioncontroller domain=permissioncontroller_app type=privapp_data_file levelFrom=all
+ user=_app isPrivApp=true name=com.android.vzwomatrigger domain=vzwomatrigger_app type=privapp_data_file levelFrom=all
+-user=_app isPrivApp=true name=com.google.android.gms domain=gmscore_app type=privapp_data_file levelFrom=user
+-user=_app isPrivApp=true name=com.google.android.gms.* domain=gmscore_app type=privapp_data_file levelFrom=user
+-user=_app isPrivApp=true name=com.google.android.gms:* domain=gmscore_app type=privapp_data_file levelFrom=user
+-user=_app isPrivApp=true name=com.google.android.gsf domain=gmscore_app type=privapp_data_file levelFrom=user
+ user=_app minTargetSdkVersion=30 domain=untrusted_app type=app_data_file levelFrom=all
+ user=_app minTargetSdkVersion=29 domain=untrusted_app_29 type=app_data_file levelFrom=all
+ user=_app minTargetSdkVersion=28 domain=untrusted_app_27 type=app_data_file levelFrom=all
+-- 
+2.30.2
+

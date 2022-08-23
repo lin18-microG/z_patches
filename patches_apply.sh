@@ -67,6 +67,12 @@ patch -p1 < $THISDIR/patch_102_SetupWizard.patch
 echo "-"
 cd $TOPDIR
 
+cd system/sepolicy
+echo "Patching $PWD (remove gmscore_app context)"
+patch -p1 < $THISDIR/patch_301_sepolicy.patch
+echo "-"
+cd $TOPDIR
+
 
 list_repos | while read STR; do
   DIR=$(echo $STR | cut -f1 -d:)

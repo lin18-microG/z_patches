@@ -36,6 +36,7 @@ clear_set packages/apps/Gallery2
 clear_set packages/apps/PermissionController
 clear_set packages/apps/Settings
 clear_set packages/apps/SetupWizard
+clear_set system/sepolicy
 clear_set vendor/nxp/opensource/commonsys/packages/apps/Nfc
 clear_set vendor/qcom/opensource/fm-commonsys
 clear_set vendor/qcom/opensource/libfmjni
