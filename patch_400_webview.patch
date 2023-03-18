@@ -1,0 +1,29 @@
+From 651754512610c2e81d276dc60da135f61b6abc36 Mon Sep 17 00:00:00 2001
+From: MSe <mse1969@posteo.de>
+Date: Sat, 18 Mar 2023 20:13:02 +0100
+Subject: [PATCH] Invalidate LineageOS Webview in  favor of Mulch
+
+Mulch and LineageOS webview use the same Module name, which leads to build
+errors. To use Mulch, the module needs to get a different unused name.
+
+Change-Id: I928853a517f817727b82940bacf84952026c9ccc
+---
+ Android.mk | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Android.mk b/Android.mk
+index 566b02e..28d5584 100644
+--- a/Android.mk
++++ b/Android.mk
+@@ -20,7 +20,7 @@ LOCAL_PATH := $(call my-dir)
+ 
+ include $(CLEAR_VARS)
+ 
+-LOCAL_MODULE := webview
++LOCAL_MODULE := LOS-webview
+ LOCAL_MODULE_CLASS := APPS
+ LOCAL_PRODUCT_MODULE := true
+ LOCAL_MULTILIB := both
+-- 
+2.30.2
+

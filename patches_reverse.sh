@@ -20,6 +20,7 @@ TOPDIR=$PWD
 
 clear_set device/common
 clear_set external/ant-wireless/ant_native
+clear_set external/chromium-webview/patches
 clear_set external/conscrypt
 clear_set external/icu
 clear_set external/neven
