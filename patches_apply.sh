@@ -37,6 +37,12 @@ patch -p1 < $THISDIR/patch_200_openssh.patch
 echo "-"
 cd $TOPDIR
 
+cd external/chromium-webview/patches
+echo "Patching $PWD (webview-switch)"
+patch -p1 < $THISDIR/patch_400_webview.patch
+echo "-"
+cd $TOPDIR
+
 cd $TOPDIR
 cd packages/apps/Dialer
 echo "Patching $PWD (Remove Google forward lookup)"
