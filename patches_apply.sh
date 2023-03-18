@@ -5,6 +5,12 @@ THISDIR=$PWD
 cd ..
 TOPDIR=$PWD
 
+cd external/Mulch
+echo "Patching $PWD (webview module)"
+patch -p1 < $THISDIR/patch_004_Mulch.patch
+echo "-"
+cd $TOPDIR
+
 cd packages/apps/Settings
 echo "Patching $PWD (NFC system feature)"
 patch -p1 < $THISDIR/patch_001_Settings.patch
