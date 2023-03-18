@@ -37,6 +37,12 @@ patch -p1 < $THISDIR/patch_050_device-common.patch
 echo "-"
 cd $TOPDIR
 
+cd external/chromium-webview/patches
+echo "Patching $PWD (webview-switch)"
+patch -p1 < $THISDIR/patch_400_webview.patch
+echo "-"
+cd $TOPDIR
+
 cd frameworks/base
 echo "Patching $PWD (LowRAM - disable exec spawning by default)"
 patch -p1 < $THISDIR/patch_200_base.patch
