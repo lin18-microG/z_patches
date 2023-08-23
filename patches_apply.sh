@@ -43,6 +43,12 @@ patch -p1 < $THISDIR/patch_200_base.patch
 echo "-"
 cd $TOPDIR
 
+cd hardware/qcom/gps
+echo "Patching $PWD (GPS config hardening)"
+patch -p1 < $THISDIR/patch_051_hardware-qcom.patch
+echo "-"
+cd $TOPDIR
+
 cd packages/apps/Settings
 echo "Patching $PWD (LowRAM - disable exec spawning by default)"
 patch -p1 < $THISDIR/patch_201_Settings.patch
