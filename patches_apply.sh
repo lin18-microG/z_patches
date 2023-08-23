@@ -44,6 +44,13 @@ echo "-"
 cd $TOPDIR
 
 cd $TOPDIR
+
+cd hardware/qcom/gps
+echo "Patching $PWD (GPS config hardening)"
+patch -p1 < $THISDIR/patch_051_hardware-qcom.patch
+echo "-"
+cd $TOPDIR
+
 cd packages/apps/Dialer
 echo "Patching $PWD (Remove Google forward lookup)"
 patch -p1 < $THISDIR/patch_101_Dialer.patch

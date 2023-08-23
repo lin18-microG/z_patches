@@ -28,6 +28,7 @@ clear_set external/openssh
 clear_set frameworks/ex
 clear_set frameworks/opt/net/voip
 clear_set frameworks/rs
+clear_set hardware/qcom/gps
 clear_set hardware/qcom-caf/common
 clear_set lineage-sdk
 clear_set packages/apps/Dialer

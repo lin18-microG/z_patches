@@ -1,0 +1,151 @@
+From 6b413bf04264b91aa8338dc336f51cf320e63332 Mon Sep 17 00:00:00 2001
+From: MSe <mse1969@posteo.de>
+Date: Tue, 22 Aug 2023 20:55:55 +0200
+Subject: [PATCH] Harden/improve GPS configuration - std., msm8974, msm8996
+
+ * Switch gpsOneXtra to IZatCloud (invalid certificate)
+ * Enable HTTPS (IZatCloud supports HTTPS)
+ * Disable LPP (privacy)
+ * Capabilities - Disable MSA (privacy) and geofencing/ULP
+ * CVE-2018-9526:
+   See: https://android.googlesource.com/device/google/marlin/+/fa7f7382e8b39f7ca209824f97788ab25c44f6a3
+
+Change-Id: Iaadb4ee1bfabfb8e8aebfe95d472d9ffddc785e1
+---
+ etc/gps.conf         | 12 ++++++------
+ msm8974/etc/gps.conf | 10 +++++-----
+ msm8996/etc/gps.conf | 14 +++++++-------
+ 3 files changed, 18 insertions(+), 18 deletions(-)
+
+diff --git a/etc/gps.conf b/etc/gps.conf
+index 3bec29a..4e3d30e 100644
+--- a/etc/gps.conf
++++ b/etc/gps.conf
+@@ -1,8 +1,8 @@
+ #Uncommenting these urls would only enable
+ #the power up auto injection and force injection(test case).
+-#XTRA_SERVER_1=http://xtrapath1.izatcloud.net/xtra2.bin
+-#XTRA_SERVER_2=http://xtrapath2.izatcloud.net/xtra2.bin
+-#XTRA_SERVER_3=http://xtrapath3.izatcloud.net/xtra2.bin
++XTRA_SERVER_1=https://xtrapath4.izatcloud.net/xtra2.bin
++XTRA_SERVER_2=https://xtrapath5.izatcloud.net/xtra2.bin
++XTRA_SERVER_3=https://xtrapath6.izatcloud.net/xtra2.bin
+ 
+ #Version check for XTRA
+ #DISABLE = 0
+@@ -17,7 +17,7 @@ XTRA_VERSION_CHECK=0
+ ERR_ESTIMATE=0
+ 
+ #Test
+-NTP_SERVER=time.gpsonextra.net
++NTP_SERVER=time.izatcloud.net
+ #Asia
+ # NTP_SERVER=asia.pool.ntp.org
+ #Europe
+@@ -59,7 +59,7 @@ USE_EMERGENCY_PDN_FOR_EMERGENCY_SUPL=1
+ #config.xml.
+ #MSA=0X2
+ #MSB=0X1
+-#SUPL_MODE=
++SUPL_MODE=1
+ 
+ # GPS Capabilities bit mask
+ # SCHEDULING = 0x01
+@@ -68,7 +68,7 @@ USE_EMERGENCY_PDN_FOR_EMERGENCY_SUPL=1
+ # ON_DEMAND_TIME = 0x10
+ # GEOFENCE = 0x20
+ # default = ON_DEMAND_TIME | MSA | MSB | SCHEDULING | GEOFENCE
+-CAPABILITIES=0x37
++CAPABILITIES=0x13
+ 
+ # Accuracy threshold for intermediate positions
+ # less accurate positions are ignored, 0 for passing all positions
+diff --git a/msm8974/etc/gps.conf b/msm8974/etc/gps.conf
+index fb8a312..03c90b9 100644
+--- a/msm8974/etc/gps.conf
++++ b/msm8974/etc/gps.conf
+@@ -1,8 +1,8 @@
+ #Uncommenting these urls would only enable
+ #the power up auto injection and force injection(test case).
+-#XTRA_SERVER_1=http://xtra1.gpsonextra.net/xtra.bin
+-#XTRA_SERVER_2=http://xtra2.gpsonextra.net/xtra.bin
+-#XTRA_SERVER_3=http://xtra3.gpsonextra.net/xtra.bin
++XTRA_SERVER_1=https://xtrapath4.izatcloud.net/xtra2.bin
++XTRA_SERVER_2=https://xtrapath5.izatcloud.net/xtra2.bin
++XTRA_SERVER_3=https://xtrapath6.izatcloud.net/xtra2.bin
+ 
+ # Error Estimate
+ # _SET = 1
+@@ -10,7 +10,7 @@
+ ERR_ESTIMATE=0
+ 
+ #Test
+-NTP_SERVER=time.gpsonextra.net
++NTP_SERVER=time.izatcloud.net
+ #Asia
+ # NTP_SERVER=asia.pool.ntp.org
+ #Europe
+@@ -46,7 +46,7 @@ SUPL_ES=1
+ # ON_DEMAND_TIME = 0x10
+ # GEOFENCE = 0x20
+ # default = ON_DEMAND_TIME | MSA | MSB | SCHEDULING | GEOFENCE
+-CAPABILITIES=0x37
++CAPABILITIES=0x13
+ 
+ # Accuracy threshold for intermediate positions
+ # less accurate positions are ignored, 0 for passing all positions
+diff --git a/msm8996/etc/gps.conf b/msm8996/etc/gps.conf
+index b52ea11..9afbc42 100644
+--- a/msm8996/etc/gps.conf
++++ b/msm8996/etc/gps.conf
+@@ -1,8 +1,8 @@
+ #Uncommenting these urls would only enable
+ #the power up auto injection and force injection(test case).
+-#XTRA_SERVER_1=http://xtrapath1.izatcloud.net/xtra2.bin
+-#XTRA_SERVER_2=http://xtrapath2.izatcloud.net/xtra2.bin
+-#XTRA_SERVER_3=http://xtrapath3.izatcloud.net/xtra2.bin
++XTRA_SERVER_1=https://xtrapath4.izatcloud.net/xtra2.bin
++XTRA_SERVER_2=https://xtrapath5.izatcloud.net/xtra2.bin
++XTRA_SERVER_3=https://xtrapath6.izatcloud.net/xtra2.bin
+ 
+ #Version check for XTRA
+ #DISABLE = 0
+@@ -38,7 +38,7 @@ INTERMEDIATE_POS=0
+ SUPL_VER=0x10000
+ 
+ # Emergency SUPL, 1=enable, 0=disable
+-SUPL_ES=0
++SUPL_ES=1
+ 
+ #Choose PDN for Emergency SUPL
+ #1 - Use emergency PDN
+@@ -50,7 +50,7 @@ USE_EMERGENCY_PDN_FOR_EMERGENCY_SUPL=1
+ #config.xml.
+ #MSA=0X2
+ #MSB=0X1
+-#SUPL_MODE=
++SUPL_MODE=1
+ 
+ # GPS Capabilities bit mask
+ # SCHEDULING = 0x01
+@@ -59,7 +59,7 @@ USE_EMERGENCY_PDN_FOR_EMERGENCY_SUPL=1
+ # ON_DEMAND_TIME = 0x10
+ # GEOFENCE = 0x20
+ # default = ON_DEMAND_TIME | MSA | MSB | SCHEDULING | GEOFENCE
+-CAPABILITIES=0x37
++CAPABILITIES=0x13
+ 
+ # Accuracy threshold for intermediate positions
+ # less accurate positions are ignored, 0 for passing all positions
+@@ -92,7 +92,7 @@ CAPABILITIES=0x37
+ # 1: Enable LPP_User_Plane on LTE
+ # 2: Enable LPP_Control_Plane
+ # 3: Enable both LPP_User_Plane and LPP_Control_Plane
+-LPP_PROFILE = 2
++LPP_PROFILE = 0
+ 
+ ################################
+ # EXTRA SETTINGS
+-- 
+2.39.2
+
