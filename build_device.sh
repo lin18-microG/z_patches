@@ -15,7 +15,7 @@ print_device() {
 
 # Check parameters
 case "$1" in
-  amami|h850|hotdog|oneplus3|osprey|x86)
+  amami|gts210ltexx|h850|hotdog|oneplus3|osprey|x86)
      print_device $1
     ;;
   *) print_help
