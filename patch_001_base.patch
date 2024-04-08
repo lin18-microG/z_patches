@@ -1,0 +1,59 @@
+From e4a03b54597d4f56fd52bf650e4cfda1b258b7f8 Mon Sep 17 00:00:00 2001
+From: mse1969 <mse1969@posteo.de>
+Date: Thu, 7 Mar 2024 21:40:06 +0100
+Subject: [PATCH] DeviceInfoUtils: Read new property to indicate custom build
+ version [2/3]
+
+AOSP has stopped providing patches for Android 11. Consequently,
+LineageOS will not lift the patch level any longer, see comment here:
+ https://review.lineageos.org/c/LineageOS/android_build/+/320334
+
+To consider that (not lifting the patch), but at the same time indicate,
+that despite missing patches, further backporting of security issues is
+ongoing, a new "Custom build release" property 'ro.lineage.custom_version'
+is introduced to show this next to the "official" security string.
+
+Change-Id: Ibb4482a3702f58c4a5f752f2ae34c9babf1ab409
+---
+ .../android/settingslib/DeviceInfoUtils.java   | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+
+diff --git a/packages/SettingsLib/src/com/android/settingslib/DeviceInfoUtils.java b/packages/SettingsLib/src/com/android/settingslib/DeviceInfoUtils.java
+index ff00fb3282b1..231723598015 100644
+--- a/packages/SettingsLib/src/com/android/settingslib/DeviceInfoUtils.java
++++ b/packages/SettingsLib/src/com/android/settingslib/DeviceInfoUtils.java
+@@ -22,6 +22,7 @@ import android.content.pm.ApplicationInfo;
+ import android.content.pm.PackageManager;
+ import android.content.pm.ResolveInfo;
+ import android.os.Build;
++import android.os.SystemProperties;
+ import android.system.Os;
+ import android.system.StructUtsname;
+ import android.telephony.PhoneNumberUtils;
+@@ -170,6 +171,23 @@ public class DeviceInfoUtils {
+         }
+     }
+ 
++   public static String getCustomPatch() {
++        String customPatch = SystemProperties.get("ro.lineage.custom_version");
++        if (!"".equals(customPatch)) {
++            try {
++                SimpleDateFormat template = new SimpleDateFormat("yyyy-MM-dd");
++                Date patchDate = template.parse(customPatch);
++                String format = DateFormat.getBestDateTimePattern(Locale.getDefault(), "MMMMyyyy");
++                customPatch = DateFormat.format(format, patchDate).toString();
++            } catch (ParseException e) {
++                // broken parse; fall through and use the raw string
++            }
++            return customPatch;
++        } else {
++            return null;
++        }
++    }
++
+     /**
+      * Format a phone number.
+      * @param subscriptionInfo {@link SubscriptionInfo} subscription information.
+-- 
+2.39.2
+

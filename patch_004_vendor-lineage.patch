@@ -1,0 +1,34 @@
+From cb6a8a1826ab7cbc734e89776d16f0a0b22db319 Mon Sep 17 00:00:00 2001
+From: MSe1969 <mse1969@posteo.de>
+Date: Thu, 7 Mar 2024 21:31:04 +0100
+Subject: [PATCH] config: Add new property to indicate custom build version
+ [1/3]
+
+AOSP has stopped providing patches for Android 11.
+Consequently, LineageOS will not lift the patch level any longer, see comment
+here: https://review.lineageos.org/c/LineageOS/android_build/+/320334
+
+To consider that (not lifting the patch), but at the same time indicate,
+that despite the missing patches, further backporting of security issues
+is ongoing, a new "Custom build release" property 'ro.lineage.custom_version'
+is introduced to show this next to the "official" security string.
+
+Change-Id: Ie3d8c6a68fb88283420adbb6ecc72613d8028d5e
+---
+ config/common.mk | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/config/common.mk b/config/common.mk
+index e7f55bf6..2c061320 100644
+--- a/config/common.mk
++++ b/config/common.mk
+@@ -1,3 +1,6 @@
++# Unofficial patch level
++PRODUCT_SYSTEM_DEFAULT_PROPERTIES += ro.lineage.custom_version=2024-04-01
++
+ # Allow vendor/extra to override any property by setting it first
+ $(call inherit-product-if-exists, vendor/extra/product.mk)
+ 
+-- 
+2.39.2
+

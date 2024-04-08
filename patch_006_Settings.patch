@@ -1,0 +1,183 @@
+From 179abbfddfe821aeec68b30abadec25596960909 Mon Sep 17 00:00:00 2001
+From: mse1969 <mse1969@posteo.de>
+Date: Thu, 7 Mar 2024 21:58:54 +0100
+Subject: [PATCH] DeviceInfo: Read new property to indicate custom build
+ version [3/3]
+
+AOSP has stopped providing patches for Android 11. Consequently,
+LineageOS will not lift the patch level any longer, see comment here:
+ https://review.lineageos.org/c/LineageOS/android_build/+/320334
+
+To consider that (not lifting the patch), but at the same time indicate,
+that despite missing patches, further backporting of security issues is
+ongoing, a new "Custom build release" property 'ro.lineage.custom_version'
+is introduced to show this next to the "official" security string.
+
+Change-Id: I58576e694d78ec434aaa3ad56387fc1db4c4b5bf
+---
+ res/values-de/cm_strings.xml                  |  2 +
+ res/values-fr/cm_strings.xml                  |  2 +
+ res/values-pl/cm_strings.xml                  |  2 +
+ res/values-ru/cm_strings.xml                  |  2 +
+ res/values/cm_strings.xml                     |  4 ++
+ res/xml/firmware_version.xml                  |  7 ++
+ .../CustomPatchLevelPreferenceController.java | 72 +++++++++++++++++++
+ 7 files changed, 91 insertions(+)
+ create mode 100644 src/com/android/settings/deviceinfo/firmwareversion/CustomPatchLevelPreferenceController.java
+
+diff --git a/res/values-de/cm_strings.xml b/res/values-de/cm_strings.xml
+index afacaa9fc7..9131932c0c 100644
+--- a/res/values-de/cm_strings.xml
++++ b/res/values-de/cm_strings.xml
+@@ -98,4 +98,6 @@
+     <string name="advanced_notifications_title">Erweiterte Benachrichtigungseinstellungen</string>
+     <string name="peak_refresh_rate_summary_custom">Setzt die Aktualisierungsrate für einige Inhalte automatisch von 60 auf %1$d Hz herauf. Erhöhter Akkuverbrauch.</string>
+     <string name="storage_warning_internal">Warnung: Diese Option funktioniert möglicherweise nicht richtig oder führt zu Datenverlust und wird daher nicht empfohlen!</string>
++    <string name="custom_patch">Custom Build Version</string>
++    <string name="custom_patch_info">Für diese Android-Version sind keine offiziellen Sicherheitsupdates mehr erhältlich. \nAlle enthaltenen Patches wurden aus neueren Versionen rückportiert.</string>
+ </resources>
+diff --git a/res/values-fr/cm_strings.xml b/res/values-fr/cm_strings.xml
+index 29b4f64981..2e9c9cc735 100644
+--- a/res/values-fr/cm_strings.xml
++++ b/res/values-fr/cm_strings.xml
+@@ -99,4 +99,6 @@ Vous êtes maintenant à <xliff:g id="step_count">%1$d</xliff:g> étapes de l\'a
+     <string name="advanced_notifications_title">Paramètres de notification avancés</string>
+     <string name="peak_refresh_rate_summary_custom">Augmente automatiquement le taux de rafraîchissement de 60 à %1$d Hz pour certains contenus. Accroît l\'utilisation de la batterie.</string>
+     <string name="storage_warning_internal">Attention : Cette option peut ne pas fonctionner correctement ou entraîner une perte de données et n\'est donc pas recommandée !</string>
++    <string name="custom_patch">Version individuelle</string>
++    <string name="custom_patch_info">Il n\'y a pas de mises à jour de sécurité officielles disponibles pour cette version d\'Android. \nTous les correctifs contenus ont été répliqués à partir de versions plus récentes.</string>
+ </resources>
+diff --git a/res/values-pl/cm_strings.xml b/res/values-pl/cm_strings.xml
+index 71562e1d81..914070cf86 100644
+--- a/res/values-pl/cm_strings.xml
++++ b/res/values-pl/cm_strings.xml
+@@ -100,4 +100,6 @@
+     <string name="advanced_notifications_title">Zaawansowane ustawienia powiadomień</string>
+     <string name="peak_refresh_rate_summary_custom">W przypadku niektórych treści automatycznie podwyższa częstotliwość odświeżania z 60 na %1$d Hz. Zwiększa zużycie baterii.</string>
+     <string name="storage_warning_internal">Ostrzeżenie: Ta opcja może nie działać poprawnie lub prowadzić do utraty danych i dlatego nie jest zalecana!</string>
++    <string name="custom_patch">Wersja nieoficjalna</string>
++    <string name="custom_patch_info">Nie ma oficjalnych aktualizacji zabezpieczeń dla tej wersji Androida. \nWszystkie zawarte łaty zostały przeniesione z nowszych wersji.</string>
+ </resources>
+diff --git a/res/values-ru/cm_strings.xml b/res/values-ru/cm_strings.xml
+index 9e79294706..b303a1076c 100644
+--- a/res/values-ru/cm_strings.xml
++++ b/res/values-ru/cm_strings.xml
+@@ -100,4 +100,6 @@
+     <string name="advanced_notifications_title">Расширенные настройки уведомлений</string>
+     <string name="peak_refresh_rate_summary_custom">Автоматически увеличивать частоту обновления экрана с 60 до %1$d Гц для некоторых типов контента. Увеличивает расход заряда батареи.</string>
+     <string name="storage_warning_internal">Предупреждение: эта опция может работать неправильно или привести к потере данных, поэтому не рекомендуется!</string>
++    <string name="custom_patch">Неофициальная версия</string>
++    <string name="custom_patch_info">Официальные исправления безопасности более не выпускаются для данной версии Android. \nВсе исправления, представленные в этой сборке, адаптированы из более новых версий системы.</string>
+ </resources>
+diff --git a/res/values/cm_strings.xml b/res/values/cm_strings.xml
+index d13d4d4fe8..63077e3512 100644
+--- a/res/values/cm_strings.xml
++++ b/res/values/cm_strings.xml
+@@ -178,4 +178,8 @@
+ 
+     <!-- Warning message for the sd card setup -->
+     <string name="storage_warning_internal">Warning: This option may not work properly or lead to data loss and is therefore not recommended!</string>
++
++    <!-- "Custom" Security Patch label -->
++    <string name="custom_patch">Custom build release</string>
++    <string name="custom_patch_info">There are no official security patches for this Android version anymore. \nAll patches contained in this build are backports from newer versions.</string>
+ </resources>
+diff --git a/res/xml/firmware_version.xml b/res/xml/firmware_version.xml
+index 2669fb7341..17b7963c56 100644
+--- a/res/xml/firmware_version.xml
++++ b/res/xml/firmware_version.xml
+@@ -54,6 +54,13 @@
+         settings:enableCopying="true"
+         settings:controller="com.android.settings.deviceinfo.firmwareversion.SecurityPatchLevelPreferenceController"/>
+ 
++    <!-- Custom Security patch -->
++    <Preference
++        android:key="custom_security_key"
++        android:title="@string/custom_patch"
++        settings:enableCopying="true"
++        settings:controller="com.android.settings.deviceinfo.firmwareversion.CustomPatchLevelPreferenceController"/>
++
+     <!-- Vendor security patch -->
+     <Preference
+         android:key="vendor_security_key"
+diff --git a/src/com/android/settings/deviceinfo/firmwareversion/CustomPatchLevelPreferenceController.java b/src/com/android/settings/deviceinfo/firmwareversion/CustomPatchLevelPreferenceController.java
+new file mode 100644
+index 0000000000..52c9b50f45
+--- /dev/null
++++ b/src/com/android/settings/deviceinfo/firmwareversion/CustomPatchLevelPreferenceController.java
+@@ -0,0 +1,72 @@
++/*
++ * Copyright (C) 2019 The Android Open Source Project
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License");
++ * you may not use this file except in compliance with the License.
++ * You may obtain a copy of the License at
++ *
++ *      http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++
++package com.android.settings.deviceinfo.firmwareversion;
++
++import android.app.AlertDialog;
++import android.content.Context;
++import android.content.Intent;
++import android.content.pm.PackageManager;
++import android.net.Uri;
++import android.text.TextUtils;
++import android.util.Log;
++
++import androidx.preference.Preference;
++
++import com.android.settings.core.BasePreferenceController;
++import com.android.settings.R;
++import com.android.settingslib.DeviceInfoUtils;
++
++public class CustomPatchLevelPreferenceController extends BasePreferenceController {
++
++    private static final String TAG = "CustomPatchCtrl";
++
++    private final PackageManager mPackageManager;
++    private final String mCurrentPatch;
++
++    public CustomPatchLevelPreferenceController(Context context, String key) {
++        super(context, key);
++        mPackageManager = mContext.getPackageManager();
++        mCurrentPatch = DeviceInfoUtils.getCustomPatch();
++    }
++
++    @Override
++    public int getAvailabilityStatus() {
++        return !TextUtils.isEmpty(mCurrentPatch)
++                ? AVAILABLE : CONDITIONALLY_UNAVAILABLE;
++    }
++
++    @Override
++    public CharSequence getSummary() {
++        return mCurrentPatch;
++    }
++
++    @Override
++    public boolean handlePreferenceTreeClick(Preference preference) {
++        if (!TextUtils.equals(preference.getKey(), getPreferenceKey())) {
++            return false;
++        }
++
++        new AlertDialog.Builder(mContext)
++            .setTitle(R.string.custom_patch)
++            .setIcon(android.R.drawable.ic_dialog_alert)
++            .setMessage(R.string.custom_patch_info)
++            .setNegativeButton(R.string.cancel, null)
++            .create().show();
++
++        return true;
++    }
++}
+-- 
+2.39.2
+
