@@ -24,7 +24,7 @@ index e7f55bf6..2c061320 100644
 +++ b/config/common.mk
 @@ -1,3 +1,6 @@
 +# Unofficial patch level
-+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += ro.lineage.custom_version=2024-09-01
++PRODUCT_SYSTEM_DEFAULT_PROPERTIES += ro.lineage.custom_version=2024-10-01
 +
  # Allow vendor/extra to override any property by setting it first
  $(call inherit-product-if-exists, vendor/extra/product.mk)
