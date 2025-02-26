@@ -5,9 +5,9 @@ THISDIR=$PWD
 cd ..
 TOPDIR=$PWD
 
-cd external/Mulch
+cd external/AOSmium-prebuilt
 echo "Patching $PWD (webview module)"
-patch -p1 < $THISDIR/patch_007_Mulch.patch
+patch -p1 < $THISDIR/patch_007_AOSmium.patch
 echo "-"
 cd $TOPDIR
 

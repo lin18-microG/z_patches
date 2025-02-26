@@ -19,7 +19,7 @@ cd ..
 TOPDIR=$PWD
 
 
-clear_set external/Mulch
+clear_set external/AOSmium-prebuilt
 clear_set frameworks/base
 clear_set packages/apps/Settings
 clear_set vendor/lineage
